@@ -1,0 +1,23 @@
+
+const express = require("express");
+const authRoutes = require("./routes/auth.routes");
+
+const app = express();
+
+app.use(express.json({ limit: "10kb" }));
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Authentication API is running.",
+  });
+});
+
+app.use("/auth", authRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Route not found.",
+  });
+});
+
+module.exports = app;
